@@ -5,3 +5,4 @@ authors = ["TrueXPixels <truexpixels@gmail.com>"]
 
 [dependencies]
 serenity = "0.5"
+chrono = "0.4"

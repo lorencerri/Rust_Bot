@@ -4,7 +4,9 @@
 
 #[macro_use]
 extern crate serenity;
+extern crate chrono;
 
+use chrono::prelude::*;
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 use serenity::model::gateway::Game;
@@ -18,6 +20,7 @@ struct Handler;
 impl EventHandler for Handler {}
 
 fn main() {
+
     // Login via token from ENV file
     let mut client = Client::new(&env::var("DISCORD_TOKEN")
         .expect("token"), Handler) // Error Handling
@@ -28,7 +31,8 @@ fn main() {
         .cmd("ping", ping) // Route to command macros
         .cmd("play", play)
         .cmd("info", info)
-        .cmd("commands", commands),
+        .cmd("commands", commands)
+        .cmd("time", time)
     );
 
     // start listening for events by starting a single shard
@@ -36,6 +40,19 @@ fn main() {
         println!("An error occurred while running the client: {:?}", why);
     }
 }
+
+command!(time(_context, message) {
+
+    let mut timezone = "UTC";
+
+    // Output Final Message
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .color(Colour::blurple())
+            .title(&format!("The current time in {} is {}", timezone, Utc::now().to_rfc2822().replace("+0000", "")))
+    ));
+
+});
 
 // Returns some information about the commands
 command!(commands(_context, message) {
@@ -47,6 +64,7 @@ command!(commands(_context, message) {
     general.push_str(&format!("**`{}info`** - *Displays basic information relating to the bot*\n", prefix));
     general.push_str(&format!("**`{}ping`** - *Returns pong*\n", prefix));
     general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input*", prefix));
+    general.push_str(&format!("**`{}time`** - *Displays the current time in UTC*", prefix));
 
     // Output Final Message
     let _ = message.channel_id.send_message(|m| m
