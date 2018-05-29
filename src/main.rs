@@ -140,6 +140,7 @@ command!(info(_context, message) {
             .color(Colour::blurple())
             .description(&format!("**{}** is an open-sourced bot created using the **Rust** programming language.", name))
             .field("Repository", github, false)
+            .field("Main File", "https://github.com/TrueXPixels/Rust_Bot/blob/master/src/main.rs", false)
     ));
 
 });
