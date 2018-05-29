@@ -80,7 +80,7 @@ command!(info(_context, message) {
 /// Sends a ping response back to the initial channel
 command!(ping(_context, message) {
 
-
+    // Create & Sent Embed
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
             .title(&format!("{}, Pong!", message.author.name))
@@ -92,6 +92,7 @@ command!(ping(_context, message) {
 /// Sets the bots status to the specified input
 command!(play(_context, message) {
 
+    // Defines content, and replaces the rb!play in the text with nothing
     let content = message.content.replace("rb!play ", "");
 
     // Create Status Variables
