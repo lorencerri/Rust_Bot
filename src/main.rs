@@ -33,6 +33,7 @@ fn main() {
         .cmd("info", info)
         .cmd("commands", commands)
         .cmd("time", time)
+        .cmd("date", time)
     );
 
     // start listening for events by starting a single shard
@@ -43,13 +44,18 @@ fn main() {
 
 command!(time(_context, message) {
 
+    let mut output_text = "time";
     let mut timezone = "UTC";
+
+    if message.content.to_string().to_uppercase().find("DATE") != None {
+        output_text = "date";
+    }
 
     // Output Final Message
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
             .color(Colour::blurple())
-            .title(&format!("The current time in {} is {}", timezone, Utc::now().to_rfc2822().replace("+0000", "")))
+            .title(&format!("The current {} in {} is {}", output_text, timezone, Utc::now().to_rfc2822().replace("+0000", "")))
     ));
 
 });
