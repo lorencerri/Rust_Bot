@@ -45,8 +45,8 @@ command!(commands(_context, message) {
     // General Commands
     let mut general = format!("**`{}commands`** - *Displays all available commands*\n", prefix).to_string();
     general.push_str(&format!("**`{}info`** - *Displays basic information relating to the bot*\n", prefix));
-    general.push_str(&format!("**`{}ping`** - *Returns with pong!\n", prefix));
-    general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input", prefix));
+    general.push_str(&format!("**`{}ping`** - *Returns with pong!*\n", prefix));
+    general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input*", prefix));
 
     // Output Final Message
     let _ = message.channel_id.send_message(|m| m
