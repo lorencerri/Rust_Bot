@@ -42,9 +42,13 @@ command!(info(_context, message) {
     let github = "https://github.com/TrueXPixels/Rust_Bot";
     let name = "Rust Bot";
 
-    let _ = message.channel_id.say(
-        &format!("**{}** is an open-sourced bot created using the **Rust Programming Language**.\nThe repository for it can be found here: {}", name, github)
-    );
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .title("Information")
+            .color(Colour::blurple())
+            .description(&format!("**{}** is an open-sourced bot created using the **Rust** programming language.", name))
+            .field("Repository", github, false)
+    ));
 
 });
 
