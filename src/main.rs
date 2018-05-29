@@ -55,7 +55,7 @@ command!(ping(_context, message) {
 
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
-            .title("Pong!")
+            .title(&format!("{}, Pong!", message.author.name))
             .color(color)
     ));
 
