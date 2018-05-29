@@ -67,12 +67,7 @@ command!(help(_context, message) {
 
         // Match Patterns
         let response = match message_content.trim().as_ref() {
-            "Embeds" => "**Documentation: https://docs.rs/serenity/*/serenity/builder/struct.CreateEmbed.html**\n```rs\nlet _ = message.channel_id.send_message(|m| m
-                .embed(|e| e
-                    .color(Colour::blurple())
-                    .title(&format!(\"Rust Help - {}\", topic))
-                    .description(response)
-            ));```",
+            "Embeds" => "**Documentation: https://docs.rs/serenity/*/serenity/builder/struct.CreateEmbed.html**\n```rs\nlet _ = message.channel_id.send_message(|m| m\n    .embed(|e| e\n        .color(Colour::blurple())\n        .title(&format!(\"Rust Help - {}\", topic))\n        .description(\"Hello World!\")\n    ));```",
             _ => "**Sorry, unable to find this topic!**",
         };
 
