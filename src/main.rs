@@ -1,3 +1,7 @@
+//! Author: @truexpixels
+//!
+//! A simple Discord bot created using the Rust Serenity Framework.
+
 #[macro_use] extern crate serenity;
 
 use serenity::client::Client;
