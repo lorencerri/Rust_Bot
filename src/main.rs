@@ -7,6 +7,9 @@
 use serenity::client::Client;
 use serenity::prelude::EventHandler;
 use serenity::framework::standard::StandardFramework;
+use serenity::utils::Colour;
+use serenity::model::gateway::Game;
+use serenity::model::user::OnlineStatus;
 use std::env;
 
 struct Handler;
@@ -42,18 +45,24 @@ command!(info(_context, message) {
     let _ = message.channel_id.say(
         &format!("**{}** is an open-sourced bot created using the **Rust Programming Language**.\nThe repository for it can be found here: {}", name, github)
     );
-    
+
 });
 
 /// Sends a ping response back to the initial channel
 command!(ping(_context, message) {
-    let _ = message.channel_id.say(&format!("{}, Pong!", message.author.name));
+
+    let color = Colour::dark_teal();
+
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .title("Pong!")
+            .color(color)
+    ));
+
 });
 
 /// Sets the bots status to the specified input
 command!(play(_context, message) {
-    use serenity::model::gateway::Game;
-    use serenity::model::user::OnlineStatus;
 
     let content = message.content.replace("rb!play ", "");
 
