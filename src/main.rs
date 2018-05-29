@@ -2,14 +2,15 @@
 //!
 //! A simple Discord bot created using the Rust Serenity Framework.
 
-#[macro_use] extern crate serenity;
+#[macro_use]
+extern crate serenity;
 
 use serenity::client::Client;
-use serenity::prelude::EventHandler;
 use serenity::framework::standard::StandardFramework;
-use serenity::utils::Colour;
 use serenity::model::gateway::Game;
 use serenity::model::user::OnlineStatus;
+use serenity::prelude::EventHandler;
+use serenity::utils::Colour;
 use std::env;
 
 struct Handler;
@@ -17,24 +18,23 @@ struct Handler;
 impl EventHandler for Handler {}
 
 fn main() {
-
     // Login via token from ENV file
     let mut client = Client::new(&env::var("DISCORD_TOKEN")
         .expect("token"), Handler) // Error Handling
         .expect("Error creating client"); // Error Handling
-    client.with_framework(StandardFramework::new() // Implement Built-In Framework
+    client.with_framework(
+        StandardFramework::new() // Implement Built-In Framework
         .configure(|c| c.prefix("rb!").case_insensitivity(true).ignore_bots(true)) // set the bot's prefix to "~"
         .cmd("ping", ping) // Route to command macros
         .cmd("play", play)
         .cmd("info", info)
-        .cmd("commands", commands)
+        .cmd("commands", commands),
     );
 
     // start listening for events by starting a single shard
     if let Err(why) = client.start() {
         println!("An error occurred while running the client: {:?}", why);
     }
-
 }
 
 // Returns some information about the commands
@@ -53,7 +53,7 @@ command!(commands(_context, message) {
         .embed(|e| e
             .title("Commands")
             .color(Colour::blurple())
-            .description(&format!("The default prefix for this bot is `{}`, and the commands are case-insensitive.", prefix))
+            .description(&format!("The default prefix for this bot is **`{}`**, and the commands are case-insensitive.", prefix))
             .field("General Commands", general, true)
     ));
 
