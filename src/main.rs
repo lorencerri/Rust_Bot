@@ -23,6 +23,7 @@ fn main() {
         .configure(|c| c.prefix("rb!")) // set the bot's prefix to "~"
         .cmd("ping", ping) // Route to command macros
         .cmd("play", play)
+        .cmd("info", info)
     );
 
     // start listening for events by starting a single shard
@@ -31,6 +32,18 @@ fn main() {
     }
 
 }
+
+/// Returns some information about to the bot to the initial channel
+command!(info(_context, message) {
+
+    let github = "https://github.com/TrueXPixels/Rust_Bot";
+    let name = "Rust Bot";
+
+    let _ = message.channel_id.say(
+        &format!("**{}** is an open-sourced bot created using the **Rust Programming Language**.\nThe repository for it can be found here: {}", name, github)
+    );
+    
+});
 
 /// Sends a ping response back to the initial channel
 command!(ping(_context, message) {
