@@ -32,11 +32,12 @@ fn main() {
 
 }
 
-// Commands
+/// Sends a ping response back to the initial channel
 command!(ping(_context, message) {
     let _ = message.channel_id.say(&format!("{}, Pong!", message.author.name));
 });
 
+/// Sets the bots status to the specified input
 command!(play(_context, message) {
     use serenity::model::gateway::Game;
     use serenity::model::user::OnlineStatus;
