@@ -44,9 +44,11 @@ fn main() {
 
 command!(time(_context, message) {
 
+    // Variables
     let mut output_text = "time";
-    let mut timezone = "UTC";
+    let timezone = "UTC";
 
+    // If the command used was 'date', change the output_text to date
     if message.content.to_string().to_uppercase().find("DATE") != None {
         output_text = "date";
     }
