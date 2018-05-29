@@ -34,6 +34,7 @@ fn main() {
         .cmd("commands", commands)
         .cmd("time", time)
         .cmd("date", time)
+        .cmd("help", help)
     );
 
     // start listening for events by starting a single shard
@@ -48,7 +49,8 @@ command!(help(_context, message) {
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
             .color(Colour::blurple())
-            .title(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**"))
+            .title("Rust Help")
+            .description(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**"))
     ));
 
 });
