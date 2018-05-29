@@ -39,9 +39,11 @@ fn main() {
 /// Returns some information about to the bot to the initial channel
 command!(info(_context, message) {
 
+    // Variables
     let github = "https://github.com/TrueXPixels/Rust_Bot";
     let name = "Rust Bot";
 
+    // Create & Send Embed
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
             .title("Information")
