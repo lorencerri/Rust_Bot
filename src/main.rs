@@ -14,6 +14,7 @@ use serenity::model::user::OnlineStatus;
 use serenity::prelude::EventHandler;
 use serenity::utils::Colour;
 use std::env;
+use std::convert::AsRef;
 
 struct Handler;
 
@@ -45,13 +46,45 @@ fn main() {
 
 command!(help(_context, message) {
 
-    // Build & Output Embed
-    let _ = message.channel_id.send_message(|m| m
-        .embed(|e| e
-            .color(Colour::blurple())
-            .title("Rust Help")
-            .description(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**"))
-    ));
+    // Define message_content
+    let message_content = &message.content.replace("rb!help", "");
+
+    // Check if user didn't specify a topic
+    if message_content.len() == 0 { // Run if the whitespace after the command is less than 2 characters
+
+        // Build & Output Embed
+        let _ = message.channel_id.send_message(|m| m
+            .embed(|e| e
+                .color(Colour::blurple())
+                .title("Rust Help")
+                .description(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**\n\n**Usage: `rb!help topic`**"))
+                .field("Topics", "`Embeds`", false)
+        ));
+
+    } else { // Or run this if something is specified
+
+        let topic = &message_content.clone();
+
+        // Match Patterns
+        let response = match message_content.trim().as_ref() {
+            "Embeds" => "**Documentation: https://docs.rs/serenity/*/serenity/builder/struct.CreateEmbed.html**\n```rs\nlet _ = message.channel_id.send_message(|m| m
+                .embed(|e| e
+                    .color(Colour::blurple())
+                    .title(&format!(\"Rust Help - {}\", topic))
+                    .description(response)
+            ));```",
+            _ => "**Sorry, unable to find this topic!**",
+        };
+
+        // Build & Output Embeds
+        let _ = message.channel_id.send_message(|m| m
+            .embed(|e| e
+                .color(Colour::blurple())
+                .title(&format!("Rust Help - {}", topic))
+                .description(response)
+        ));
+
+    }
 
 });
 
