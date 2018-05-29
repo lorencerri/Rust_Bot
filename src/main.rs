@@ -23,7 +23,7 @@ fn main() {
         .expect("token"), Handler) // Error Handling
         .expect("Error creating client"); // Error Handling
     client.with_framework(StandardFramework::new() // Implement Built-In Framework
-        .configure(|c| c.prefix("rb!").case_insensitivity(true)) // set the bot's prefix to "~"
+        .configure(|c| c.prefix("rb!").case_insensitivity(true).ignore_bots(true)) // set the bot's prefix to "~"
         .cmd("ping", ping) // Route to command macros
         .cmd("play", play)
         .cmd("info", info)
