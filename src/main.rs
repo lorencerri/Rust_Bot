@@ -42,6 +42,17 @@ fn main() {
     }
 }
 
+command!(help(_context, message) {
+
+    // Build & Output Embed
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .color(Colour::blurple())
+            .title(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**"))
+    ));
+
+});
+
 command!(time(_context, message) {
 
     // Variables
