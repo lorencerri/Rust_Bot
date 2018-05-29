@@ -57,12 +57,11 @@ command!(info(_context, message) {
 /// Sends a ping response back to the initial channel
 command!(ping(_context, message) {
 
-    let color = Colour::dark_teal();
 
     let _ = message.channel_id.send_message(|m| m
         .embed(|e| e
             .title(&format!("{}, Pong!", message.author.name))
-            .color(color)
+            .color(Colour::blurple())
     ));
 
 });
