@@ -27,6 +27,7 @@ fn main() {
         .cmd("ping", ping) // Route to command macros
         .cmd("play", play)
         .cmd("info", info)
+        .cmd("commands", commands)
     );
 
     // start listening for events by starting a single shard
@@ -35,6 +36,28 @@ fn main() {
     }
 
 }
+
+// Returns some information about the commands
+command!(commands(_context, message) {
+
+    let prefix = "rb!";
+
+    // General Commands
+    let mut general = format!("**`{}commands`** - *Displays all available commands*\n", prefix).to_string();
+    general.push_str(&format!("**`{}info`** - *Displays basic information relating to the bot*\n", prefix));
+    general.push_str(&format!("**`{}ping`** - *Returns with pong!", prefix));
+    general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input", prefix));
+
+    // Output Final Message
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .title("Commands")
+            .color(Colour::blurple())
+            .description(&format!("The default prefix for this bot is `{}`, and the commands are case-insensitive.", prefix))
+            .field("General Commands", general, true)
+    ));
+
+});
 
 /// Returns some information about to the bot to the initial channel
 command!(info(_context, message) {
