@@ -58,7 +58,7 @@ command!(help(_context, message) {
                 .color(Colour::blurple())
                 .title("Rust Help")
                 .description(&format!("**NOTE:** This command displays information relating to the **Rust** programming language, for a bot commands list type **`rb!commands`**\n\n**Usage: `rb!help topic`**"))
-                .field("Topics", "`Embeds`", false)
+                .field("Topics", "`Embeds, setPresence`", false)
         ));
 
     } else { // Or run this if something is specified
@@ -68,6 +68,7 @@ command!(help(_context, message) {
         // Match Patterns
         let response = match message_content.trim().as_ref() {
             "Embeds" => "**Documentation: https://docs.rs/serenity/*/serenity/builder/struct.CreateEmbed.html**\n```rs\nlet _ = message.channel_id.send_message(|m| m\n    .embed(|e| e\n        .color(Colour::blurple())\n        .title(\"Title!\")\n        .description(\"Hello World!\")\n));```",
+            "setPresence" => "```// Create Status Variables\nlet game = Game::playing(&format!(\"{}\", \"Hello World!\"));\nlet status = OnlineStatus::DoNotDisturb;\n\n// Update Status\n_context.set_presence(Some(game), status);\n\n// Send Output\nlet _ = message.channel_id.say(&format!(\"My game status has successfully updated to: **{}**\", \"Hello World!\"));```",
             _ => "**Sorry, unable to find this topic!**",
         };
 
