@@ -68,7 +68,7 @@ command!(help(_context, message) {
         // Match Patterns
         let response = match message_content.trim().as_ref() {
             "Embeds" => "**Documentation: https://docs.rs/serenity/*/serenity/builder/struct.CreateEmbed.html**\n```rs\nlet _ = message.channel_id.send_message(|m| m\n    .embed(|e| e\n        .color(Colour::blurple())\n        .title(\"Title!\")\n        .description(\"Hello World!\")\n));```",
-            "setPresence" => "```// Create Status Variables\nlet game = Game::playing(&format!(\"{}\", \"Hello World!\"));\nlet status = OnlineStatus::DoNotDisturb;\n\n// Update Status\n_context.set_presence(Some(game), status);\n\n// Send Output\nlet _ = message.channel_id.say(&format!(\"My game status has successfully updated to: **{}**\", \"Hello World!\"));```",
+            "setPresence" => "```rs\n// Create Status Variables\nlet game = Game::playing(&format!(\"{}\", \"Hello World!\"));\nlet status = OnlineStatus::DoNotDisturb;\n\n// Update Status\n_context.set_presence(Some(game), status);\n\n// Log Output\nprintln!(\"My game status has successfully updated to: **{}**\", \"Hello World!\");```",
             _ => "**Sorry, unable to find this topic!**",
         };
 
@@ -113,7 +113,7 @@ command!(commands(_context, message) {
     let mut general = format!("**`{}commands`** - *Displays all available commands*\n", prefix).to_string();
     general.push_str(&format!("**`{}info`** - *Displays basic information relating to the bot*\n", prefix));
     general.push_str(&format!("**`{}ping`** - *Returns pong*\n", prefix));
-    general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input*", prefix));
+    general.push_str(&format!("**`{}play game`** - *Sets the bots presence as the input*\n", prefix));
     general.push_str(&format!("**`{}time`** - *Displays the current time in UTC*", prefix));
 
     // Output Final Message
